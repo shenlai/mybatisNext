@@ -26,6 +26,7 @@
         3.使用${}会造成sql注入
     -->
     <select id="selectLikeUserName" resultType="com.ys.po.User" parameterType="String">
+      <!-- select * from user where user LIKE CONCAT('%',#{username},'%' ) -->
       select * from user where username like '%${value}%'
       <!-- select * from user where username like #{username} -->
     </select>

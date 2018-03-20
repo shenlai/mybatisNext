@@ -23,7 +23,7 @@
 		 <!--dataSource 元素使用标准的 JDBC 数据源接口来配置 JDBC 连接对象源  -->
 		 <dataSource type="POOLED">
 		 	<property name="driver" value="com.mysql.jdbc.Driver"></property>
-		 	<property name="url" value="jdbc:mysql://localhost:3306/store"></property>
+		 	<property name="url" value="jdbc:mysql://localhost:3306/store?useUnicode=true&amp;characterEncoding=UTF-8"></property>
 		 	<property name="username" value="root"/>
             <property name="password" value="123456"/>
 		 </dataSource>
