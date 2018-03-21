@@ -35,5 +35,9 @@
 	userMapper.xml位于com.ys.mapper这个包下,所以resource写成com/ys/mapper/userMapper.xml
 	 -->
 	 <mapper resource="com/ys/mapper/userMapper.xml"></mapper>
+	 
+	 <!-- 注册ProductMapper -->
+	 <mapper class = "com.ys.annocation.ProductMapper"></mapper>
+	 <mapper class = "com.ys.annocation.UserMapper"></mapper>
 	</mappers>
 </configuration>
