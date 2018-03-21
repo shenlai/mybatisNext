@@ -30,12 +30,22 @@
       select * from user where username like '%${value}%'
       <!-- select * from user where username like #{username} -->
     </select>
-<!-- 向User表插入数据 -->    
+<!-- 向User表插入数据  返回主键id-->    
     <insert id="insertUser" parameterType="com.ys.po.User">
+    	<!-- 将插入的数据主键返回到user对象中
+    		keyProperty：将查询到的主键设置到parameterType指定到对象的属性
+    		select LAST_INSERT_ID():查询上一次执行insert操作返回的主键id值，只适用于自增主键
+    		resultType:指定select LAST_INSERT_ID()的结果类型
+    		order:AFTER,相对于select LAST_INSERT_ID()操作顺序 
+    	 -->
+    	 <selectKey keyProperty="id" resultType="int" order="AFTER">
+    	  	select LAST_INSERT_ID()
+    	 </selectKey>
+    	 
     	insert into user(id,username,sex,birthday,address)
     	value(#{id},#{username},#{sex},#{birthday},#{address})
     </insert>
-    
+
     <!-- 根据id更新user表 -->
     <update id ="updateUserById" parameterType="com.ys.po.User">
       update user set username=#{username} where id=#{id}
