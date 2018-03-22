@@ -16,7 +16,7 @@ public interface ProductMapper {
 	@Insert("insert into products(`Name`,Description,UnitPrice,ImageUrl,IsNew) value(#{Name},#{Description},#{UnitPrice},#{ImageUrl},#{IsNew})")
 	public void insertProduct(Product product) throws Exception;
 	
-	@Update("update products set description=#{description},unitprice=#{unitprice} where id =#{id}")
+	@Update("update products set description=#{Description},unitprice=#{UnitPrice} where id =#{id}")
 	public void updateProductById(Product product) throws Exception;
 	
     @Delete("delete from products where id=#{id}")

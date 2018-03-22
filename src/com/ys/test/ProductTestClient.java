@@ -48,7 +48,7 @@ public class ProductTestClient {
 	        session.close();
 	    }
 	    
-	    @Test
+	    //@Test
 	    public void testInsertProduct() throws Exception{
 	    
 	    	//根据session获取Mapper接口
@@ -67,6 +67,35 @@ public class ProductTestClient {
 	    	session.close();
 	      
 	    }
+	    
+	    //@Test
+	    public void testUpdateProductByID() throws Exception {
+	    	//根据session获取Mapper接口
+	    	ProductMapper mapper =session.getMapper(ProductMapper.class);
+	    	
+	    	Product product = new Product();
+	    	product.setDescription("杭州安吉");
+	    	product.setUnitPrice(new BigDecimal("3289"));
+	    	product.setId(7);
+	    	mapper.updateProductById(product);
+	    	
+	    	session.commit();  //必须commit
+	    	  System.out.println(product);
+	    	session.close();
+	    }
+	    
+	    
+	    @Test
+	    public void testDeleteProductByID() throws Exception {
+	    	//根据session获取Mapper接口
+	    	ProductMapper mapper =session.getMapper(ProductMapper.class);
+	    	
+	    	mapper.deleteUserById(15);
+	    	session.commit(); 
+	    	session.close();
+	    }
+	    
+	    
 		
 		
 }
