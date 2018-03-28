@@ -51,7 +51,7 @@ public class TestClient {
 	}
 	
 	 //根据id查询user表数据
-    //@Test
+    @Test
     public void testSelectUserById(){
         /*这个字符串由 userMapper.xml 文件中 两个部分构成
             <mapper namespace="com.ys.po.userMapper"> 的 namespace 的值
@@ -64,7 +64,7 @@ public class TestClient {
 	
     
   //模糊查询：根据 user 表的username字段
-   // @Test
+   //@Test
     public void testSelectLikeUserName(){
         String statement = "com.ys.po.userMapper.selectLikeUserName";
         List<User> listUser = session.selectList(statement, "%测%");

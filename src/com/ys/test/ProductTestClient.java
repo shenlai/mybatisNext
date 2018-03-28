@@ -36,7 +36,7 @@ public class ProductTestClient {
 		}
 		
 		
-	    //@Test
+	    @Test
 	    public void testSelectProductById() throws Exception{
 	    
 	    	//根据session获取Mapper接口
