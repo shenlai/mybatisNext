@@ -3,57 +3,46 @@
 	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.ys.po.userMapper">
-	<!-- 根据id查询user表
-	    resultType:返回值类型，一条数据库记录也就对应实体类的一个对象
-	    parameterType:参数类型，也就是查询条件的类型
-	 -->
-	<select id="selectUserById" resultType="user" parameterType="int">
-	 <!-- 这里和普通的sql 查询语句差不多，对于只有一个参数，后面的 #{id}表示占位符，里面不一定要写id,写啥都可以，但是不要空着，如果有多个参数则必须写pojo类里面的属性 -->
-        select * from user where id = #{id}
+	<!-- 根据id查询user表 resultType:返回值类型，一条数据库记录也就对应实体类的一个对象 parameterType:参数类型，也就是查询条件的类型 -->
+	<select id="selectUserById" resultType="com.ys.po.User" parameterType="int">
+		<!-- 这里和普通的sql 查询语句差不多，对于只有一个参数，后面的 #{id}表示占位符，里面不一定要写id,写啥都可以，但是不要空着，如果有多个参数则必须写pojo类里面的属性 -->
+		select * from user where id = #{id}
 	</select>
-	
-	<!-- 查询 user 表的所有数据
-        注意：因为是查询所有数据，所以返回的应该是一个集合,这个集合里面每个元素都是User类型
-     -->
-    <select id="selectUserAll" resultType="com.ys.po.User">
-        select * from user
-    </select>
-    
-   <!-- 模糊查询：根据user表的username字段
-        下面两种写法都可以，但是要注意
-        1.${value}里面必须要写value,否则报错
-        2.${}表示拼接sql字符串，将接收到的参数不加任何修饰拼接在sql语句中
-        3.使用${}会造成sql注入
-    -->
-    <select id="selectLikeUserName" resultType="com.ys.po.User" parameterType="String">
-      <!-- select * from user where user LIKE CONCAT('%',#{username},'%' ) -->
-      select * from user where username like '%${value}%'
-      <!-- select * from user where username like #{username} -->
-    </select>
-<!-- 向User表插入数据  返回主键id-->    
-    <insert id="insertUser" parameterType="com.ys.po.User">
-    	<!-- 将插入的数据主键返回到user对象中
-    		keyProperty：将查询到的主键设置到parameterType指定到对象的属性
-    		select LAST_INSERT_ID():查询上一次执行insert操作返回的主键id值，只适用于自增主键
-    		resultType:指定select LAST_INSERT_ID()的结果类型
-    		order:AFTER,相对于select LAST_INSERT_ID()操作顺序 
-    	 -->
-    	 <selectKey keyProperty="id" resultType="int" order="AFTER">
-    	  	select LAST_INSERT_ID()
-    	 </selectKey>
-    	 
-    	insert into user(id,username,sex,birthday,address)
-    	value(#{id},#{username},#{sex},#{birthday},#{address})
-    </insert>
 
-    <!-- 根据id更新user表 -->
-    <update id ="updateUserById" parameterType="com.ys.po.User">
-      update user set username=#{username} where id=#{id}
-    </update>
-    
-    <!-- 根据id删除user表数据 -->
-    <delete id="deleteUserById" parameterType="int">
-    	delete from user where id=#{id}
-    </delete>
-       
+	<!-- 查询 user 表的所有数据 注意：因为是查询所有数据，所以返回的应该是一个集合,这个集合里面每个元素都是User类型 -->
+	<select id="selectUserAll" resultType="com.ys.po.User">
+		select * from user
+	</select>
+
+	<!-- 模糊查询：根据user表的username字段 下面两种写法都可以，但是要注意 1.${value}里面必须要写value,否则报错 
+		2.${}表示拼接sql字符串，将接收到的参数不加任何修饰拼接在sql语句中 3.使用${}会造成sql注入 -->
+	<select id="selectLikeUserName" resultType="com.ys.po.User"
+		parameterType="String">
+		<!-- select * from user where user LIKE CONCAT('%',#{username},'%' ) -->
+		select * from user where username like '%${value}%'
+		<!-- select * from user where username like #{username} -->
+	</select>
+	<!-- 向User表插入数据 返回主键id -->
+	<insert id="insertUser" parameterType="com.ys.po.User">
+		<!-- 将插入的数据主键返回到user对象中 keyProperty：将查询到的主键设置到parameterType指定到对象的属性 select 
+			LAST_INSERT_ID():查询上一次执行insert操作返回的主键id值，只适用于自增主键 resultType:指定select LAST_INSERT_ID()的结果类型 
+			order:AFTER,相对于select LAST_INSERT_ID()操作顺序 -->
+		<selectKey keyProperty="id" resultType="int" order="AFTER">
+			select LAST_INSERT_ID()
+		</selectKey>
+
+		insert into user(id,username,sex,birthday,address)
+		value(#{id},#{username},#{sex},#{birthday},#{address})
+	</insert>
+
+	<!-- 根据id更新user表 -->
+	<update id="updateUserById" parameterType="com.ys.po.User">
+		update user set username=#{username} where id=#{id}
+	</update>
+
+	<!-- 根据id删除user表数据 -->
+	<delete id="deleteUserById" parameterType="int">
+		delete from user where id=#{id}
+	</delete>
+
 </mapper>

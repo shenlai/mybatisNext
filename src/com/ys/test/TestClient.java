@@ -14,9 +14,11 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import com.ys.po.User;
 
+//使用mapper.userMapper.xml配置文件
 public class TestClient {
 
 	//定义SqlSession
@@ -51,7 +53,7 @@ public class TestClient {
 	}
 	
 	 //根据id查询user表数据
-    @Test
+    //@Test
     public void testSelectUserById(){
         /*这个字符串由 userMapper.xml 文件中 两个部分构成
             <mapper namespace="com.ys.po.userMapper"> 的 namespace 的值
@@ -113,4 +115,24 @@ public class TestClient {
         session.commit();
         session.close();
 	}
+    
+    @Test
+    public void selectUserByUsernameAndSex(){  
+        String statement = "com.ys.po.userMapperSql.selectUserByUsernameAndSex";
+        User user = new User();
+        user.setUsername("普吉人");
+        user.setSex("男");
+        List<User> listUser = session.selectList(statement, user);
+        session.commit();
+        //HashMap<String, Object> map = new HashMap<String, Object>();    
+        //map.put("sex", "男");    
+        //map.put("username", "普吉小哥");  
+        //List<User> listUser = session.selectList(statement, map);
+        for(User u:listUser)
+        {
+        	System.out.println(u);
+        }
+        
+        session.close();
+    }
 }

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper 
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ys.po.userMapperSql">
+	<!-- mybatis 动态SQL -->
+
+	<!-- if+where    resultType 和 parameterType 此处使用了别名-->
+	<select id="selectUserByUsernameAndSex" resultType="user">
+		select * from user
+		<where>
+			<if test='username !=null'>
+			    username = #{username}
+			</if>
+			<if test='sex !=null'>
+			   and sex = #{sex}
+			</if>
+		</where>
+	</select>
+
+</mapper>
