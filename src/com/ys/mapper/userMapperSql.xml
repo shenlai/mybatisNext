@@ -5,7 +5,7 @@
 <mapper namespace="com.ys.po.userMapperSql">
 	<!-- mybatis 动态SQL -->
 
-	<!-- if+where    resultType 和 parameterType 此处使用了别名-->
+	<!-- if+where    resultType  此处使用了别名-->
 	<select id="selectUserByUsernameAndSex" resultType="user">
 		select * from user
 		<where>
@@ -16,6 +16,39 @@
 			   and sex = #{sex}
 			</if>
 		</where>
+	</select>
+	
+	<!-- if+update -->
+	<select id="updateUserById" parameterType="user">
+		update user u
+		<set>
+			<if test="username != null and username != ''">
+			    u.sername = #{username},
+			</if>
+			<if test="sex != null and sex != ''">
+			    u.sex = #{sex}
+			</if>
+		</set>
+		
+		 where id=#{id}
+	</select>
+	
+	<!-- choose +when + otherwise (sql： )  只能选择一个作为查询条件 -->
+	<select id="selectUserByChoose" resultType="user" parameterType="user">
+	   select * from user
+	   <where>
+	   		<choose>
+	   			<when test="id!='' and id!=null">
+	   				id=#{id}
+	   			</when>
+	   			<when test="username !='' and username != null">
+                  and username=#{username}
+              </when>
+              <otherwise>
+                  and sex=#{sex}
+              </otherwise>
+	   		</choose>
+	   </where>
 	</select>
 
 </mapper>

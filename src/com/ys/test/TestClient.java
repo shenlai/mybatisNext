@@ -116,12 +116,54 @@ public class TestClient {
         session.close();
 	}
     
-    @Test
+    //@Test
     public void selectUserByUsernameAndSex(){  
         String statement = "com.ys.po.userMapperSql.selectUserByUsernameAndSex";
         User user = new User();
         user.setUsername("ÆÕ¼ªÈË");
         user.setSex("ÄÐ");
+        List<User> listUser = session.selectList(statement, user);
+        session.commit();
+        //HashMap<String, Object> map = new HashMap<String, Object>();    
+        //map.put("sex", "ÄÐ");    
+        //map.put("username", "ÆÕ¼ªÐ¡¸ç");  
+        //List<User> listUser = session.selectList(statement, map);
+        for(User u:listUser)
+        {
+        	System.out.println(u);
+        }
+        
+        session.close();
+    }
+    
+    //@Test
+    public void updateUserById(){  
+        String statement = "com.ys.po.userMapperSql.updateUserById";
+        User user = new User();
+        user.setUsername("");
+        user.setSex("Å®");
+        user.setId(1);
+        List<User> listUser = session.selectList(statement, user);
+        session.commit();
+        //HashMap<String, Object> map = new HashMap<String, Object>();    
+        //map.put("sex", "ÄÐ");    
+        //map.put("username", "ÆÕ¼ªÐ¡¸ç");  
+        //List<User> listUser = session.selectList(statement, map);
+        for(User u:listUser)
+        {
+        	System.out.println(u);
+        }
+        
+        session.close();
+    }
+    
+    @Test
+    public void selectUserByChoose(){  
+        String statement = "com.ys.po.userMapperSql.selectUserByChoose";
+        User user = new User();
+        user.setUsername("");
+        user.setSex("Å®");
+        user.setId(1);
         List<User> listUser = session.selectList(statement, user);
         session.commit();
         //HashMap<String, Object> map = new HashMap<String, Object>();    
