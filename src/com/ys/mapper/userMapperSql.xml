@@ -6,9 +6,10 @@
 	<!-- mybatis 动态SQL -->
 
 	<!-- if+where    resultType  此处使用了别名-->
+	<!-- 用 trim 改写 if+where 语句 -->
 	<select id="selectUserByUsernameAndSex" resultType="user">
 		select * from user
-		<where>
+		<!-- <where>
 			<if test='username !=null'>
 			    username = #{username}
 			</if>
@@ -16,12 +17,23 @@
 			   and sex = #{sex}
 			</if>
 		</where>
+		 -->
+		 <!-- prefixoverride：去掉第一个and或者是or -->
+		 <trim prefix="where" prefixOverrides="and | or">
+		 <if test='username !=null'>
+			    username = #{username}
+			</if>
+			<if test='sex !=null'>
+			   and sex = #{sex}
+			</if>
+		 </trim>
 	</select>
 	
-	<!-- if+update -->
+	<!-- if+update  set 没有判断去除多余逗号功能-->
+	<!-- 用 trim 改写 if+set 语句 -->
 	<select id="updateUserById" parameterType="user">
 		update user u
-		<set>
+		<!-- <set>
 			<if test="username != null and username != ''">
 			    u.sername = #{username},
 			</if>
@@ -29,7 +41,17 @@
 			    u.sex = #{sex}
 			</if>
 		</set>
-		
+		 -->
+		 
+		 <!-- suffixoverride：去掉最后一个逗号（也可以是其他的标记，就像是上面前缀中的and一样） -->
+		<trim prefix="set" suffixOverrides=",">
+			<if test="username != null and username != ''">
+                    u.username = #{username},
+                </if>
+                <if test="sex != null and sex != ''">
+                    u.sex = #{sex},
+                </if>
+		</trim>
 		 where id=#{id}
 	</select>
 	
@@ -38,17 +60,36 @@
 	   select * from user
 	   <where>
 	   		<choose>
-	   			<when test="id!='' and id!=null">
-	   				id=#{id}
-	   			</when>
 	   			<when test="username !='' and username != null">
-                  and username=#{username}
+                   username=#{username}
               </when>
+              <when test="sex!='' and sex!=null">
+	   			and sex=#{sex}
+	   			</when>
               <otherwise>
-                  and sex=#{sex}
+              	and id=#{id}
               </otherwise>
 	   		</choose>
 	   </where>
 	</select>
+	
+	
+	<!-- 定义sql片段   在 sql 片段中不要包括 where -->
+	<sql id="selectUserByUserNameAndSexSQL">
+	<if test="username != null and username != ''">
+        AND username = #{username}
+    </if>
+    <if test="sex != null and sex != ''">
+        AND sex = #{sex}
+    </if>
+	</sql>
+<select id="selectUserByParameters" resultType="user" parameterType="user">
+    select * from user
+    <trim prefix="where" prefixOverrides="and | or">
+        <!-- 引用 sql 片段，如果refid 指定的不在本文件中，那么需要在前面加上 namespace -->
+        <include refid="selectUserByUserNameAndSexSQL"></include>
+        <!-- 在这里还可以引用其他的 sql 片段 -->
+    </trim>
+</select>
 
 </mapper>

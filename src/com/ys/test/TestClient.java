@@ -120,8 +120,8 @@ public class TestClient {
     public void selectUserByUsernameAndSex(){  
         String statement = "com.ys.po.userMapperSql.selectUserByUsernameAndSex";
         User user = new User();
-        user.setUsername("普吉人");
-        user.setSex("男");
+        //user.setUsername("普吉人");
+        user.setSex("女");
         List<User> listUser = session.selectList(statement, user);
         session.commit();
         //HashMap<String, Object> map = new HashMap<String, Object>();    
@@ -140,24 +140,20 @@ public class TestClient {
     public void updateUserById(){  
         String statement = "com.ys.po.userMapperSql.updateUserById";
         User user = new User();
-        user.setUsername("");
-        user.setSex("女");
+        //user.setUsername("");
+        user.setSex("谁");
         user.setId(1);
-        List<User> listUser = session.selectList(statement, user);
+        session.update(statement, user);
         session.commit();
-        //HashMap<String, Object> map = new HashMap<String, Object>();    
-        //map.put("sex", "男");    
-        //map.put("username", "普吉小哥");  
-        //List<User> listUser = session.selectList(statement, map);
-        for(User u:listUser)
-        {
-        	System.out.println(u);
-        }
         
+        String statement2 = "com.ys.po.userMapper.selectUserById";
+        User newuser = session.selectOne(statement2, 1);
+        
+        System.out.println(newuser);
         session.close();
     }
     
-    @Test
+    //@Test
     public void selectUserByChoose(){  
         String statement = "com.ys.po.userMapperSql.selectUserByChoose";
         User user = new User();
@@ -177,4 +173,22 @@ public class TestClient {
         
         session.close();
     }
+    
+     //sql 引用片段
+    @Test
+    public void selectUserByParameters(){  
+        String statement = "com.ys.po.userMapperSql.selectUserByParameters";
+        User user = new User();
+        //user.setUsername("普吉人");
+        user.setSex("女");
+        List<User> listUser = session.selectList(statement, user);
+        session.commit();
+        for(User u:listUser)
+        {
+        	System.out.println(u);
+        }
+        
+        session.close();
+    }
+    
 }
