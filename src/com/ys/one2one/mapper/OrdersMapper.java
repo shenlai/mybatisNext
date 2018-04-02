@@ -11,4 +11,13 @@ public interface  OrdersMapper {
      * @return
      */
 	public Orders selectOrderAndUserByOrderID(int orderId);
+	
+	/**
+     * 方式二：嵌套查询
+     * select * from order WHERE id=1;//得到user_id
+     * select * from user WHERE id=1   //1 是上一个查询得到的user_id的值
+     * @param userID
+     * @return
+     */
+	public Orders getOrderByOrderId(int orderId);
 }

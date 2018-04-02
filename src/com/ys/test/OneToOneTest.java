@@ -40,12 +40,23 @@ public class OneToOneTest {
         session = sessionFactory.openSession();
     }
     
-    @Test
+    //@Test
     public void testSelectOrderAndUserByOrderId(){
-        String statement = "com.ys.one2one.mapper.OrdersMapper.selectOrderAndUserByOrderID";
+        //String statement = "com.ys.one2one.mapper.OrdersMapper.selectOrderAndUserByOrderID";
         //创建OrdersMapper对象，mybatis自动生成mapepr代理对象
         OrdersMapper orderMapper = session.getMapper(OrdersMapper.class);
         Orders order = orderMapper.selectOrderAndUserByOrderID(1);
+        System.out.println(order);
+        session.close();
+    }
+    
+    //嵌套查询
+    @Test
+    public void testgetOrderByOrderId(){
+        //String statement = "com.ys.one2one.mapper.OrdersMapper.getOrderByOrderId";
+        //创建OrdersMapper对象，mybatis自动生成mapepr代理对象
+        OrdersMapper orderMapper = session.getMapper(OrdersMapper.class);
+        Orders order = orderMapper.getOrderByOrderId(2);
         System.out.println(order);
         session.close();
     }

@@ -36,6 +36,27 @@
         </association>
     </resultMap>
      
+    <!--
+      方式二：嵌套查询:通过执行另外的一个SQL映射语句来返回预期的复杂类型
+      select user_id from order where id = 1;//返回user_id
+      select * from user where id=1;// user_id
+        property:别名(属性名)    column：列名 -->
+     --> 
+     <select id="getOrderByOrderId" resultMap="getOrderMap">
+     	select * from orders where id=#{id}
+     </select>
+     <resultMap type="com.ys.po.Orders" id="getOrderMap">
+		<id column="id" property="id" />
+		<result column="user_id" property="userId"/>
+		<result column="number" property="number"/>
+		
+		<!-- property对应orders属性user,  column="user_id" 作为参数传入 getUserByUserId-->
+		<association property="user" column="user_id" select="getUserByUserId"></association>
+     </resultMap>
+	 <select id="getUserByUserId" resultType="com.ys.po.User">
+	  	select * from user where id=#{id}
+	 </select>     
+     
   
      
 </mapper>
