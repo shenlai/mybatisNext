@@ -8,6 +8,7 @@ import org.apache.ibatis.annotations.Update;
 import com.ys.po.User;
 
 public interface UserMapper {
+	
 	//根据 id 查询 user 表数据
     @Select("select * from user where id = #{id}")
     public User selectUserById(int id) throws Exception;
