@@ -13,10 +13,12 @@ import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import com.ys.po.User;
+import com.ys.po.UserVo;
 
 //使用mapper.userMapper.xml配置文件
 public class TestClient {
@@ -175,7 +177,7 @@ public class TestClient {
     }
     
      //sql 引用片段
-    @Test
+    //@Test
     public void selectUserByParameters(){  
         String statement = "com.ys.po.userMapperSql.selectUserByParameters";
         User user = new User();
@@ -188,6 +190,22 @@ public class TestClient {
         	System.out.println(u);
         }
         
+        session.close();
+    }
+    
+    @Test
+    public void testSelectUserByListId(){
+        String statement = "com.ys.po.userMapperSql.selectUserByListId2";
+        UserVo uv = new UserVo();
+        List<Integer> ids = new ArrayList<>();
+        ids.add(1);
+        ids.add(2);
+        ids.add(3);
+        uv.setIds(ids);
+        List<User> listUser = session.selectList(statement, uv);
+        for(User u : listUser){
+            System.out.println(u);
+        }
         session.close();
     }
     
