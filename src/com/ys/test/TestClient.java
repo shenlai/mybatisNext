@@ -55,7 +55,7 @@ public class TestClient {
 	}
 	
 	 //根据id查询user表数据
-    //@Test
+    @Test
     public void testSelectUserById(){
         /*这个字符串由 userMapper.xml 文件中 两个部分构成
             <mapper namespace="com.ys.po.userMapper"> 的 namespace 的值
