@@ -1,5 +1,6 @@
 package com.ys.po;
 import java.util.Date;
+import java.util.List;
 
 public class User {
 
@@ -8,6 +9,18 @@ public class User {
 	private Date birthday;
 	private String address;
 	private String sex;
+	
+	
+	//用户和订单构成一对多的关系
+	public List<Orders> orders;
+	
+	public List<Orders> getOrders() {
+        return orders;
+    }
+    public void setOrders(List<Orders> orders) {
+        this.orders = orders;
+    }
+    
 	
 	public int getId() {
 		return id;

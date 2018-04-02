@@ -40,7 +40,7 @@
       方式二：嵌套查询:通过执行另外的一个SQL映射语句来返回预期的复杂类型
       select user_id from order where id = 1;//返回user_id
       select * from user where id=1;// user_id
-        property:别名(属性名)    column：列名 -->
+      
      --> 
      <select id="getOrderByOrderId" resultMap="getOrderMap">
      	select * from orders where id=#{id}

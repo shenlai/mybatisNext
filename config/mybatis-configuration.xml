@@ -50,6 +50,7 @@
             OrdersMapper接口的输出输出参数和OrdersMapper.xml文件resultType，parameterType类型一样
          -->
          <mapper class="com.ys.one2one.mapper.OrdersMapper"/>
+         <mapper class="com.ys.one2many.mapper.NewUserMapper"/>
 	</mappers>
 </configuration>
 <!-- 定义别名 -->
